@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to CSV Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-file-excel"></i> Excel to CSV Converter</h1>
+            <p>Batch convert your Excel files (.xlsx, .xls) to CSV format</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="individual">Individual Files</button>
+            <button class="tab-btn" data-tab="directory">Directory</button>
+        </div>
+
+        <div class="tab-content active" id="individual">
+            <div class="upload-area" id="dropArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & drop Excel files here or</p>
+                <label for="fileInput" class="upload-btn">Select Files</label>
+                <input type="file" id="fileInput" multiple accept=".xlsx,.xls" hidden>
+            </div>
+
+            <div class="file-list-container">
+                <h3>Files to Convert</h3>
+                <ul id="fileList" class="file-list"></ul>
+            </div>
+        </div>
+
+        <div class="tab-content" id="directory">
+            <div class="directory-selector">
+                <h3>Convert all Excel files in a directory</h3>
+                <p>Select a directory containing Excel files to convert them all at once.</p>
+                <div class="directory-input-group">
+                    <input type="text" id="directoryPath" placeholder="Directory path" readonly>
+                    <label for="directoryInput" class="directory-btn">Browse</label>
+                    <input type="file" id="directoryInput" webkitdirectory directory hidden>
+                </div>
+                <div class="directory-stats">
+                    <p>Excel files found: <span id="fileCount">0</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="options-panel">
+            <h3>Conversion Options</h3>
+            <div class="option">
+                <label for="delimiter">Delimiter:</label>
+                <select id="delimiter">
+                    <option value="comma">Comma (,)</option>
+                    <option value="semicolon">Semicolon (;)</option>
+                    <option value="tab">Tab</option>
+                </select>
+            </div>
+            <div class="option">
+                <label for="sheet">Sheet to convert:</label>
+                <select id="sheet">
+                    <option value="first">First sheet only</option>
+                    <option value="all">All sheets (separate CSV files)</option>
+                </select>
+            </div>
+            <div class="option">
+                <label>
+                    <input type="checkbox" id="includeHeaders" checked>
+                    Include headers
+                </label>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="convertBtn" class="primary-btn" disabled>
+                <i class="fas fa-sync-alt"></i> Convert Files
+            </button>
+            <button id="clearBtn" class="secondary-btn" disabled>
+                <i class="fas fa-trash"></i> Clear Files
+            </button>
+        </div>
+
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <p id="progressText">Converting files: 0%</p>
+        </div>
+
+        <div class="result-container" id="resultContainer" style="display: none;">
+            <h3>Conversion Results</h3>
+            <div class="result-summary">
+                <p>Successfully converted: <span id="successCount">0</span></p>
+                <p>Failed: <span id="failCount">0</span></p>
+            </div>
+            <ul id="resultList" class="result-list"></ul>
+            <button id="downloadAllBtn" class="primary-btn">
+                <i class="fas fa-download"></i> Download All CSV Files
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Excel to CSV Converter &copy; 2023 | Built with modern web technologies</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
